@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
+import { InputTodo } from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
@@ -39,46 +42,20 @@ export const App = () => {
 
   return (
     <>
-      <div className="input-area">
-        <input
-          type="text"
-          placeholder="TODOを入力"
-          value={todoText}
-          onChange={onChangeTodoText}
-        />
-        <button onClick={onClickedAdd}>追加</button>
-      </div>
-      <div className="imcomplete-area">
-        <p class="title">未完了のTODO</p>
-        <ul id="incomplete-list">
-          {imcompleteTodos.map((todo, index) => {
-            return (
-              <li key={todo}>
-                <div class="list-row">
-                  <p>{todo}</p>
-                  <button onClick={() => onclickComplete(index)}>完了</button>
-                  <button onClick={() => onClikedDelete(index)}>削除</button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      <div className="complete-area">
-        <p class="title">完了のTODO</p>
-        <ul id="incomplete-list">
-          {completeTodos.map((todo, index) => {
-            return (
-              <li key={todo}>
-                <div class="list-row">
-                  <p>{todo}</p>
-                  <button onClick={() => onClickedBack(index)}>戻す</button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <InputTodo
+        todoText={todoText}
+        onChange={onChangeTodoText}
+        onClick={onClickedAdd}
+      />
+      <IncompleteTodos
+        imcompleteTodos={imcompleteTodos}
+        onclickComplete={onclickComplete}
+        onClikedDelete={onClikedDelete}
+      />
+      <CompleteTodos
+        completeTodos={completeTodos}
+        onClickedBack={onClickedBack}
+      />
     </>
   );
 };
